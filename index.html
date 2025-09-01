@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PVR High School</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #fef8f5;
+    color: #333;
+  }
+
+  header {
+    text-align: center;
+    padding: 30px 20px;
+    background: #ffdde1;
+    border-bottom: 5px solid #ffb3c6;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #444;
+  }
+
+  header p {
+    margin: 5px 0 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #666;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+  }
+
+  nav button {
+    background: #ffb3c6;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+
+  nav button:hover {
+    background: #ff8fa3;
+    transform: scale(1.05);
+  }
+
+  .section {
+    display: none;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+  }
+
+  .section.active { display: block; }
+
+  h2 { color: #444; margin-bottom: 15px; }
+
+  .back-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #ffdde1;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: none;
+  }
+
+  .back-btn:hover { background: #ffb3c6; transform: scale(1.05); }
+
+  .box {
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 700px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    text-align: left;
+  }
+
+  .green-box { background: #d8f9d8; }
+  .pink-box { background: #ffd8e5; }
+
+  .slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding-bottom: 10px;
+    margin: 20px 0;
+  }
+
+  .slide {
+    flex: 0 0 90%;
+    scroll-snap-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .cloud-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .cloud {
+    background: #c5f0f5;
+    border-radius: 50%;
+    padding: 25px;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .cloud:hover { background: #a0e4ea; }
+
+  ul.vertical-list {
+    list-style: none;
+    padding: 0;
+    text-align:left;
+    max-width:400px;
+    margin:0 auto;
+  }
+
+  ul.vertical-list li { margin-bottom: 8px; }
+
+  iframe { width: 90%; height: 300px; border: none; border-radius: 8px; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PVR HIGH SCHOOL</h1>
+  <p>🌟 Igniting PASSION, Shaping VISION, Achieving RESULTS.</p>
+</header>
+
+<nav>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('menu')">Menu</button>
+</nav>
+
+<button class="back-btn" onclick="goBack()">⬅ Back</button>
+
+<!-- Home Section -->
+<div id="home" class="section active">
+  <h2>Welcome to PVR High School</h2>
+  <p>PVR High School, established in 2012, is committed to providing quality education while nurturing discipline, values, and holistic growth.</p>
+
+  <div class="box green-box">
+    <h3>Our Mission</h3>
+    <p>To nurture young minds with knowledge, skills, and values, enabling them to face future challenges with confidence and integrity.</p>
+  </div>
+
+  <div class="box pink-box">
+    <h3>Our Vision</h3>
+    <p>To be a center of excellence in education by inspiring passion, shaping vision, and helping students achieve remarkable results.</p>
+  </div>
+
+  <h2>Messages</h2>
+  <div class="slider">
+    <div class="slide">
+      <h3>Chairperson's Message</h3>
+      <p>Education is the foundation of society, and at PVR High School, we are dedicated to shaping students who are not only academically strong but also socially responsible and morally upright. We strive to create an environment that fosters curiosity, creativity, and a lifelong love for learning.</p>
+    </div>
+    <div class="slide">
+      <h3>Principal's Message</h3>
+      <p>At PVR, we emphasize academic excellence, character development, and overall personality growth. Our teachers are mentors who encourage students to explore their interests, participate in extracurricular activities, and become confident individuals ready to face global challenges.</p>
+    </div>
+  </div>
+
+  <h2>Achievements</h2>
+  <p>🏆 Swachh Vidyalaya Puraskar – State Level Award – 2017<br>
+     🏅 Best Teacher Award<br>
+     🏃 Students participated at district, state, national & international sports<br>
+     🎓 9 students successfully placed in government jobs</p>
+</div>
+
+<!-- Menu Section -->
+<div id="menu" class="section">
+  <h2>Explore Menu</h2>
+  <div class="cloud-menu">
+    <div class="cloud" onclick="showPage('faculty')">Faculty & Staff</div>
+    <div class="cloud" onclick="showPage('admissions')">Admissions</div>
+    <div class="cloud" onclick="showPage('announcements')">Announcements</div>
+    <div class="cloud" onclick="showPage('alumni')">Alumni</div>
+    <div class="cloud" onclick="showPage('testimonials')">Testimonials</div>
+    <div class="cloud" onclick="showPage('magazine')">School Magazine</div>
+    <div class="cloud" onclick="showPage('contact')">Contact</div>
+  </div>
+</div>
+
+<!-- Faculty Section -->
+<div id="faculty" class="section">
+  <h2>Faculty & Staff</h2>
+  <ul class="vertical-list">
+    <li>Mr Srinu</li>
+    <li>Mrs Srilatha</li>
+    <li>Mr Ramesh</li>
+    <li>Mr Ravi Kumar</li>
+    <li>Mrs Rajitha</li>
+    <li>Mrs Sreelatha</li>
+    <li>Mr Ashok</li>
+    <li>Mrs Sarala</li>
+    <li>Mrs Anju</li>
+    <li>Mrs Radhika</li>
+    <li>Mrs Pushpalata</li>
+    <li>Mrs Shravani</li>
+  </ul>
+  <h3>Non-Teaching Staff</h3>
+  <ul class="vertical-list">
+    <li>Mrs Manjula - Clerk</li>
+    <li>Mr Kumar Kumar - PET</li>
+    <li>3 Nannies</li>
+    <li>2 Drivers</li>
+  </ul>
+</div>
+
+<!-- Admissions Section -->
+<div id="admissions" class="section">
+  <h2>Admissions</h2>
+  <p>Admission is open for classes Nursery to 10th. Eligibility is based on age as per government norms.</p>
+  <p>Process: Submit form, required documents, and complete interaction/assessment if applicable.</p>
+</div>
+
+<!-- Announcements Section -->
+<div id="announcements" class="section">
+  <h2>Announcements</h2>
+  <p>Upcoming Formative Assessment: September 2025</p>
+  <p>Stay tuned for school events and circulars.</p>
+</div>
+
+<!-- Alumni Section -->
+<div id="alumni" class="section">
+  <h2>Alumni</h2>
+  <p>PVR High School has produced several successful graduates who have excelled in academics, government jobs, and professional careers. Our alumni continue to inspire current students through mentorship and guidance.</p>
+</div>
+
+<!-- Testimonials Section -->
+<div id="testimonials" class="section">
+  <h2>Testimonials</h2>
+  <p>"Studying at PVR High School has been a turning point in my life. The supportive teachers and strong foundation helped me succeed in higher studies."</p>
+  <p><strong>- Tejaswi Pappu</strong>, Batch of 2019, Graduated from Osmania University</p>
+</div>
+
+<!-- School Magazine Section -->
+<div id="magazine" class="section">
+  <h2>School Magazine</h2>
+  <p>Our school magazine highlights student achievements, cultural events, and academic excellence. It is a platform for students to showcase creativity, essays, art, and photography.</p>
+</div>
+
+<!-- Contact Section -->
+<div id="contact" class="section">
+  <h2>Contact Us</h2>
+  <p><strong>Address:</strong> PVR High School, Vanaparthy village, Lingala Ganapur mandal, Jangaon district - 506303</p>
+  <p><strong>Phone:</strong> +91-9849295865</p>
+  <
