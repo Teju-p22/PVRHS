@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PVR High School</title>
+<style>
+body { margin:0; font-family:'Segoe UI', Tahoma, sans-serif; background:#fdf6f9; color:#333; }
+header { text-align:center; padding:20px; background:#e0f7fa; border-bottom:5px solid #80deea; position:relative; z-index:10; }
+header h1 { margin:0; font-size:2.5rem; color:#444; }
+header p { margin:5px 0 0; font-size:1.2rem; font-style:italic; color:#555; }
+header p::before { content:"★ "; color:gold; }
+
+/* Front Page Sections */
+section { padding:30px 20px; max-width:900px; margin:auto; text-align:center; }
+h2 { color:#444; margin-bottom:20px; }
+.box { padding:20px; margin:15px auto; max-width:800px; border-radius:15px; box-shadow:0 6px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
+.box:hover { transform:translateY(-5px); }
+.green-box { background:#d0f8ce; }
+.pink-box { background:#ffe0e0; }
+.blue-box { background:#d0e8ff; }
+.yellow-box { background:#fff8d0; }
+
+/* Achievements */
+.achievement-list { list-style:none; padding:0; text-align:left; display:inline-block; }
+.achievement-list li::before { content:"⭐ "; color:gold; }
+
+/* Messages */
+.message-container { position:relative; max-width:800px; margin:20px auto; overflow:hidden; }
+.message-slide { display:flex; transition: transform 0.5s ease; }
+.message-card { min-width:100%; box-sizing:border-box; padding:25px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.2); margin:0 10px; background:#d0f0fd; }
+.swipe-btn { position:absolute; top:50%; transform:translateY(-50%); background:#80deea; border:none; font-size:24px; padding:10px 15px; border-radius:50%; cursor:pointer; box-shadow:0 3px 8px rgba(0,0,0,0.2);}
+.swipe-btn:hover { background:#4dd0e1; transform:translateY(-50%) scale(1.1); }
+.prev-btn { left:-20px; }
+.next-btn { right:-20px; }
+
+/* Menu Modal */
+#menuOverlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.3); z-index:900; }
+#menuCards {
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap:20px;
+  background: rgba(255,255,255,0.95);
+  padding:30px 20px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  z-index:1000;
+  max-width:90%;
+}
+.menu-card { width:200px; padding:25px; border-radius:15px; cursor:pointer; box-shadow:0 6px 15px rgba(0,0,0,0.2); transition:transform 0.2s ease; text-align:center; font-weight:500; }
+.menu-card:hover { transform:scale(1.05); }
+.card-blue { background:#d0e8ff; }
+.card-green { background:#d0f8ce; }
+.card-yellow { background:#fff8d0; }
+.card-pink { background:#ffe0e0; }
+.close-menu-btn { display:block; margin:20px auto 0; padding:12px 25px; background:#ffd54f; border:none; border-radius:25px; font-size:1rem; cursor:pointer; box-shadow:0 3px 8px rgba(0,0,0,0.15);}
+.close-menu-btn:hover { background:#ffca28; transform:scale(1.05); }
+
+/* Modal Section */
+.modal-section { display:none; padding:20px; background:white; border-radius:20px; max-width:800px; margin:auto; text-align:left; box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+.modal-section h2 { text-align:center; margin-top:0; }
+
+/* Back Buttons */
+.back-btn { position:fixed; top:15px; left:15px; background:#80deea; color:#333; font-size:16px; font-weight:500; padding:8px 16px; border:none; border-radius:25px; box-shadow:0 3px 8px rgba(0,0,0,0.15); cursor:pointer; display:none; z-index:1100; }
+.back-btn:hover { background:#4dd0e1; transform:scale(1.05); }
+.home-btn { position:fixed; bottom:15px; left:15px; background:#ffd54f; color:#333; font-size:16px; font-weight:500; padding:8px 16px; border:none; border-radius:25px; box-shadow:0 3px 8px rgba(0,0,0,0.15); cursor:pointer; display:none; z-index:1100; }
+.home-btn:hover { background:#ffca28; transform:scale(1.05); }
+
+/* Menu Button */
+#menuBtn { position:fixed; top:20px; right:20px; padding:10px 18px; font-size:16px; border-radius:25px; border:none; background:#ffd54f; cursor:pointer; box-shadow:0 3px 8px rgba(0,0,0,0.2); z-index:100; }
+#menuBtn:hover { background:#ffca28; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PVR HIGH SCHOOL</h1>
+  <p>Igniting PASSION, Shaping VISION, Achieving RESULTS</p>
+</header>
+
+<button id="menuBtn" onclick="openMenu()">📚 Menu</button>
+
+<!-- Front Page Sections -->
+<section id="history">
+  <h2>History</h2>
+  <div class="box green-box">
+    <p>PVR High School was established in 2012 to provide quality education to children in Vanaparthy and surrounding areas. Since its inception, the school has focused on holistic development—academically, socially, and emotionally. We aim to cultivate curiosity, responsibility, and integrity, preparing our students to thrive in an ever-evolving world.</p>
+  </div>
+</section>
+
+<section id="mission">
+  <h2>Mission</h2>
+  <div class="box blue-box">
+    <p>Our mission is to provide comprehensive education combining academics, co-curricular activities, and moral guidance. We empower students to become lifelong learners and responsible citizens who contribute positively to society.</p>
+  </div>
+</section>
+
+<section id="vision">
+  <h2>Vision</h2>
+  <div class="box yellow-box">
+    <p>We envision a school where every student is encouraged to explore, innovate, and achieve excellence. PVR High School aspires to nurture confident individuals ready to face global challenges with integrity and creativity.</p>
+  </div>
+</section>
+
+<section id="messages">
+  <h2>Messages</h2>
+  <div class="message-container">
+    <button class="swipe-btn prev-btn" onclick="prevSlide()">❮</button>
+    <div class="message-slide">
+      <div class="message-card pink-box">
+        <h3>Chairperson's Message</h3>
+        <p>Welcome to PVR High School. Our commitment is to create an environment where every child can learn, grow, and excel. We nurture talents and foster integrity to prepare students for a bright future.</p>
+      </div>
+      <div class="message-card green-box">
+        <h3>Principal's Message</h3>
+        <p>At PVR High School, we provide holistic education blending academics with co-curricular excellence. Our dedicated faculty ensures every student achieves their fullest potential in a safe, inspiring environment.</p>
+      </div>
+    </div>
+    <button class="swipe-btn next-btn" onclick="nextSlide()">❯</button>
+  </div>
+</section>
+
+<section id="achievements">
+  <h2>Achievements</h2>
+  <ul class="achievement-list">
+    <li>Swachh Vidyalaya Puraskar – State Level Award – 2017</li>
+    <li>Best Teacher Award</li>
+    <li>Students participated in district, state, national, and international sports competitions</li>
+    <li>Nine students placed in government jobs</li>
+  </ul>
+</section>
+
+<!-- Menu Modal -->
+<div id="menuOverlay" onclick="closeMenu()"></div>
+<div id="menuCards">
+  <div class="menu-card card-blue" onclick="openSection('faculty')">Faculty & Staff</div>
+  <div class="menu-card card-green" onclick="openSection('admissions')">Admissions</div>
+  <div class="menu-card card-yellow" onclick="openSection('announcements')">Announcements</div>
+  <div class="menu-card card-pink" onclick="openSection('alumni')">Alumni</div>
+  <div class="menu-card card-blue" onclick="openSection('testimonials')">Testimonials</div>
+  <div class="menu-card card-green" onclick="openSection('magazine')">School Magazine</div>
+  <div class="menu-card card-yellow" onclick="openSection('contact')">Contact</div>
+  <button class="close-menu-btn" onclick="closeMenu()">Close Menu</button>
+</div>
+
+<!-- Modal Sections -->
+<section id="faculty" class="modal-section">
+  <h2>Faculty & Staff</h2>
+  <ul>
+    <li>Mr Srinu</li>
+    <li>Mrs Srilatha</li>
+    <li>Mr Ramesh</li>
+    <li>Mr Ravi Kumar</li>
+    <li>Mrs Rajitha</li>
+    <li>Mrs Sreelatha</li>
+    <li>Mr Ashok</li>
+    <li>Mrs Sarala</li>
+    <li>Mrs Anju</li>
+    <li>Mrs Radhika</li>
+    <li>Mrs Pushpalata</li>
+    <li>Mrs Shravani</li>
+    <li>Mrs Manjula – Clerk</li>
+    <li>Mr Kumar – PET</li>
+    <li>Three Nannies</li>
+    <li>Two Drivers</li>
+  </ul>
+</section>
+
+<section id="admissions" class="modal-section">
+  <h2>Admissions</h2>
+  <p>Admissions are open for all classes based on age and government norms. Parents can submit applications during the admission period with all required documents. The selection process ensures fair opportunity for all, and we aim to make the process smooth and accessible.</p>
+</section>
+
+<section id="announcements" class="modal-section">
+  <h2>Announcements</h2>
+  <p>No current announcements.</p>
+</section>
+
+<section id="alumni" class="modal-section">
+  <h2>Alumni</h2>
+  <p>Information about alumni activities will be updated soon.</p>
+</section>
+
+<section id="testimonials" class="modal-section">
+  <h2>Testimonials</h2>
+  <p>No testimonials added yet.</p>
+</section>
+
+<section id="magazine" class="modal-section">
+  <h2>School Magazine</h2>
+  <p>School magazine content will be available soon.</p>
+</section>
+
+<section id="contact" class="modal-section">
+  <h2>Contact</h2>
+  <p><strong>Address:</strong> PVR High School, Vanaparthy</p>
+  <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
+  <p><strong>Email:</strong> info@pvrhighschool.com</p>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.426722092995!2d78.49167847490213!3d16.37216288802048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb909d98c88b9f%3A0xeab7f3447a6f6b4c!2sPVR%20High%20School!5e0!3m2!1sen!2sin!4v1693576800000!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<!-- Back Buttons -->
+<button class="back-btn" onclick="backToMenu()">⬅ Back</button>
+<button class="home-btn" onclick="backToHome()">🏠 Back to Home</button>
+
+<script>
+let slideIndex = 0;
+const slides = document.querySelectorAll('.message-card');
+function showSlide(index) {
+  const container = document.querySelector('.message-slide');
+  container.style.transform = `translateX(-${index*100}%)`;
+}
+function prevSlide(){ slideIndex = (slideIndex-1+slides.length)%slides.length; showSlide(slideIndex); }
+function nextSlide(){ slideIndex = (slideIndex+1)%slides.length; showSlide(slideIndex); }
+
+// Menu functionality
+function openMenu(){
+  document.getElementById('menuOverlay').style.display='block';
+  document.getElementById('menuCards').style.display='flex';
+}
+function closeMenu(){
+  document.getElementById('menuOverlay').style.display='none';
+  document.getElementById('menuCards').style.display='none';
+  hideAllModalSections();
+}
+function openSection(id){
+  hideAllModalSections();
+  document.getElementById(id).style.display='block';
+  document.querySelector('.back-btn').style.display='block';
+  document.querySelector('.home-btn').style.display='block';
+}
+function hideAllModalSections(){
+  const modals=document.querySelectorAll('.modal-section');
+  modals.forEach(m=>m.style.display='none');
+}
+function backToMenu(){
+  hideAllModalSections();
+  document.querySelector('.back-btn').style.display='none';
+  document.querySelector('.home-btn').style.display='none';
+  openMenu();
+}
+function backToHome(){
+  hideAllModalSections();
+  document.querySelector('.back-btn').style.display='none';
+  document.querySelector('.home-btn').style.display='none';
+  closeMenu();
+}
+</script>
+
+</body>
+</html>
