@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PVR High School</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #fdf6f9;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: #e0f7fa;
+      border-bottom: 5px solid #80deea;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      color: #444;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #555;
+    }
+
+    header p::before {
+      content: "★ ";
+      color: gold;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    nav button {
+      background: #80deea;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    nav button:hover {
+      background: #4dd0e1;
+      transform: scale(1.05);
+    }
+
+    section {
+      display: none;
+      padding: 30px 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    h2 {
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .box {
+      padding: 20px;
+      margin: 15px auto;
+      max-width: 800px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+    }
+
+    .green-box { background: #d0f8ce; }
+    .pink-box { background: #ffe0e0; }
+    .blue-box { background: #d0e8ff; }
+    .yellow-box { background: #fff8d0; }
+
+    .achievement-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      display: inline-block;
+    }
+
+    .achievement-list li::before {
+      content: "⭐ ";
+      color: gold;
+    }
+
+    .message-container {
+      position: relative;
+      max-width: 800px;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+
+    .message-slide {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .message-card {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      margin: 0 10px;
+      background: #d0f0fd;
+    }
+
+    .swipe-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #80deea;
+      border: none;
+      font-size: 24px;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .swipe-btn:hover {
+      background: #4dd0e1;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .prev-btn { left: -20px; }
+    .next-btn { right: -20px; }
+
+    .back-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #80deea;
+      color: #333;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: none;
+    }
+
+    .back-btn:hover {
+      background: #4dd0e1;
+      transform: scale(1.05);
+    }
+
+    .back-home-btn {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: #ffd54f;
+      color: #333;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 25px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: none;
+    }
+
+    .back-home-btn:hover {
+      background: #ffca28;
+      transform: scale(1.05);
+    }
+
+    ul.staff-list { list-style: none; padding: 0; text-align: left; }
+    ul.staff-list li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PVR HIGH SCHOOL</h1>
+    <p>Igniting PASSION, Shaping VISION, Achieving RESULTS</p>
+  </header>
+
+  <nav>
+    <button onclick="showPage('history')">History</button>
+    <button onclick="showPage('mission')">Mission</button>
+    <button onclick="showPage('vision')">Vision</button>
+    <button onclick="showPage('messages')">Messages</button>
+    <button onclick="showPage('achievements')">Achievements</button>
+    <button onclick="showPage('faculty')">Faculty & Staff</button>
+    <button onclick="showPage('admissions')">Admissions</button>
+    <button onclick="showPage('announcements')">Announcements</button>
+    <button onclick="showPage('alumni')">Alumni</button>
+    <button onclick="showPage('testimonial')">Testimonials</button>
+    <button onclick="showPage('schoolmag')">School Magazine</button>
+    <button onclick="showPage('contact')">Contact</button>
+  </nav>
+
+  <!-- Sections -->
+  <section id="history">
+    <h2>History</h2>
+    <div class="box green-box">
+      <p>PVR High School was established in 2012 with a strong commitment to provide quality education to children in Vanaparthy and surrounding areas. Over the years, the school has grown into a hub for holistic development, nurturing students academically, socially, and emotionally. Our vision has always been to cultivate curiosity, responsibility, and integrity among our students, preparing them to thrive in an ever-changing world.</p>
+    </div>
+  </section>
+
+  <section id="mission">
+    <h2>Mission</h2>
+    <div class="box blue-box">
+      <p>Our mission is to deliver a comprehensive educational experience, combining strong academics with co-curricular activities, instilling moral values, and fostering critical thinking. We aim to empower students to become lifelong learners and responsible citizens who contribute positively to society.</p>
+    </div>
+  </section>
+
+  <section id="vision">
+    <h2>Vision</h2>
+    <div class="box yellow-box">
+      <p>We envision a school environment where every student is encouraged to explore, innovate, and achieve excellence. By providing support, guidance, and opportunities, PVR High School aspires to nurture confident individuals ready to face global challenges.</p>
+    </div>
+  </section>
+
+  <section id="messages">
+    <h2>Messages</h2>
+    <div class="message-container">
+      <button class="swipe-btn prev-btn" onclick="prevSlide()">❮</button>
+      <div class="message-slide">
+        <div class="message-card pink-box">
+          <h3>Chairperson's Message</h3>
+          <p>Welcome to PVR High School. Our commitment is to create an environment where every child can learn, grow, and excel. We believe in nurturing talents and fostering integrity to prepare our students for a bright future.</p>
+        </div>
+        <div class="message-card green-box">
+          <h3>Principal's Message</h3>
+          <p>At PVR High School, we aim to provide holistic education by blending academics with co-curricular excellence. Our dedicated faculty strives to ensure every student achieves their fullest potential in a safe and inspiring environment.</p>
+        </div>
+      </div>
+      <button class="swipe-btn next-btn" onclick="nextSlide()">❯</button>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <h2>Achievements</h2>
+    <ul class="achievement-list">
+      <li>Swachh Vidyalaya Puraskar – State Level Award – 2017</li>
+      <li>Best Teacher Award</li>
+      <li>Students participated in district, state, national, and international level sports competitions</li>
+      <li>Nine students placed in government jobs</li>
+    </ul>
+  </section>
+
+  <section id="faculty">
+    <h2>Faculty & Staff</h2>
+    <h3>Teaching Staff</h3>
+    <ul class="staff-list">
+      <li>Mr. Srinu</li>
+      <li>Mrs. Srilatha</li>
+      <li>Mr. Ramesh</li>
+      <li>Mr. Ravi Kumar</li>
+      <li>Mrs. Rajitha</li>
+      <li>Mrs. Sreelatha</li>
+      <li>Mr. Ashok</li>
+      <li>Mrs. Sarala</li>
+      <li>Mrs. Anju</li>
+      <li>Mrs. Radhika</li>
+      <li>Mrs. Pushpalata</li>
+      <li>Mrs. Shravani</li>
+    </ul>
+    <h3>Non-Teaching Staff</h3>
+    <ul class="staff-list">
+      <li>Mrs. Manjula – Clerk/Front Desk</li>
+      <li>Mr. Kumar Kumar – PET</li>
+      <li>Three Nannies</li>
+      <li>Two Drivers</li>
+    </ul>
+  </section>
+
+  <section id="admissions">
+    <h2>Admissions</h2>
+    <div class="box blue-box">
+      <p>Admissions are based on age criteria as per government norms. Parents can contact the school office for enrollment procedures. Our process ensures that every student receives fair consideration, and we guide families through the necessary steps for a smooth admission experience.</p>
+    </div>
+  </section>
+
+  <section id="announcements">
+    <h2>Announcements</h2>
+    <div class="box yellow-box">
+      <p>Upcoming formative assessments and examinations will be held in September. Please check the school notice board and official communication channels for detailed schedules.</p>
+    </div>
+  </section>
+
+  <section id="alumni">
+    <h2>Alumni</h2>
+    <div class="box green-box">
+      <p>We take pride in our alumni who have excelled in various fields. Their achievements reflect the strong foundation and holistic education received at PVR High School.</p>
+    </div>
+  </section>
+
+  <section id="testimonial">
+    <h2>Testimonials</h2>
+    <div class="box blue-box">
+      <p>Coming soon...</p>
+    </div>
+  </section>
+
+  <section id="schoolmag">
+    <h2>School Magazine</h2>
+    <div class="box pink-box">
+      <p>Our annual school magazine showcases the creativity, achievements, and literary talents of our students. It is a reflection of our vibrant school community.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="box yellow-box">
+      <p><strong>Address:</strong> Vanaparthy Village, Lingala Ganapur Mandal, Jangaon District – 506303</p>
+      <p><strong>Phone:</strong> 9849295865</p>
+      <p><strong>Email:</strong> PVRhighschool@vpy.com</p>
+      <p><a href="https://maps.app.goo.gl/3z3v51igtuoBtMaY7?g_st=ipc" target="_blank">📍 View on Google Maps</a></p>
+    </div>
+  </section>
+
+  <!-- Back Buttons -->
+  <button class="back-btn" onclick="goBack()">⬅ Back</button>
+  <button class="back-home-btn" onclick="showPage('history')">🏠 Back to Home</button>
+
+  <script>
+    let historyStack = ['history']; 
+    function showPage(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      if (id !== 'history') {
+        document.querySelector('.back-btn').style.display = 'block';
+        document.querySelector('.back-home-btn').style.display = 'block';
+        historyStack.push(id);
+      } else {
+        document.querySelector('.back-btn').style.display = 'none';
+        document.querySelector('.back-home-btn').style.display = 'none';
+        historyStack = ['history'];
+      }
+    }
+    function goBack() {
+      if (historyStack.length > 1) {
+        historyStack.pop(); 
+        const prevPage = historyStack[historyStack.length - 1];
+        showPage(prevPage);
+      } else {
+        showPage('history');
+      }
+    }
+
+    // Swipe functionality for messages
+    let currentSlide = 0;
+    function updateSlide() {
+      const slide = document.querySelector('.message-slide');
+      slide.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+    function prevSlide() {
+      currentSlide = (currentSlide === 0) ? 1 : currentSlide - 1;
+      updateSlide();
+    }
+    function nextSlide() {
+      currentSlide = (currentSlide === 1) ? 0 : currentSlide + 1;
+      updateSlide();
+    }
+  </script>
+</body>
+</html>
